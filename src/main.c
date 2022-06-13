@@ -52,7 +52,9 @@
 #define GPIO_MODER13_SHIFT (26)
 #define GPIO_MODER0_SHIFT (0)
 
-#define GPIO_MODER13_MASK (3 << GPIO_MODER13_SHIFT) /* GPIO port output type register */
+#define GPIO_MODER13_MASK (3 << GPIO_MODER13_SHIFT)
+//vai resetar os bits de forma que tenhamos os bits de reset de acordo com o manual 
+/* GPIO port output type register */
 #define GPIO_MODER0_MASK (3 << GPIO_MODER0_SHIFT) //QUEREMOS A ENTRADA 
 
 #define GPIO_OTYPER_PP (0)                          /* 0=Output push-pull */
@@ -101,7 +103,7 @@ int main(int argc, char *argv[])
     uint32_t *pGPIOA_MODER = (uint32_t *)STM32_GPIOC_MODER;
     uint32_t *pGPIOA_IDR = (uint32_t *)STM32_GPIOA_IDR;
     uint32_t *pGPIOA_PUPDR = (uint32_t *)STM32_GPIOC_PUPDR;
-    uint32_t *pGPIOA_BSRR = (uint32_t *)STM32_GPIOC_BSRR;
+    //uint32_t *pGPIOA_BSRR = (uint32_t *)STM32_GPIOC_BSRR;
 
     uint32_t LED_DELAY;
 //CONFIGURAR PC 
@@ -109,6 +111,7 @@ int main(int argc, char *argv[])
     reg |= RCC_AHB1ENR_GPIOCEN;
     *pRCC_AHB1ENR = reg;
 //CONFIGURA SAIDA DE PULL-UP E PULL-DOWN para o PC13
+//ler, zera, escreve e salva
     reg = *pGPIOC_MODER;
     reg &= ~(GPIO_MODER13_MASK);
     reg |= (GPIO_MODER_OUTPUT << GPIO_MODER13_SHIFT);
@@ -138,13 +141,14 @@ int main(int argc, char *argv[])
 
     regA = *pGPIOA_PUPDR;
     regA &= ~(GPIO_PUPDR0_MASK);
-    regA |= (GPIO_PUPDR_NONE << GPIO_PUPDR0_SHIFT);
+    regA |= (GPIO_PUPDR_PULLUP << GPIO_PUPDR0_SHIFT);
     *pGPIOA_PUPDR = regA;
 
     while (1)
     {
 
-         if ( !(*pGPIOA_IDR) )
+        regA=*pGPIOA_IDR;
+         if (regA & 1)
             LED_DELAY = 50000;
         else
             LED_DELAY = 10000;
