@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
          if ( !(*pGPIOA_IDR) )
             LED_DELAY = 50000;
         else
-            LED_DELAY = 1000;
+            LED_DELAY = 10000;
 
         *pGPIOC_BSRR = GPIO_BSRR_SET(13);
         led_status = 0;
