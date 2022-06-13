@@ -3,7 +3,7 @@ CC = arm-none-eabi-gcc
 LD = arm-none-eabi-gcc
 CP = arm-none-eabi-objcopy
 CFLAGS = -c -mcpu=cortex-m4 -mthumb -Wall -O0#VARIAVEIS DE COMPILAÇÃO 
-LFLAGS = -nostdlib -T stm32f411-rom.ld
+LFLAGS = -nostdlib -T stm32f401-rom.ld
 
 #podemos substituir o nome do executavel por $@ que copia o nome do .c e faz a extensão .o
 #$< utiliza o nome do .c que é a primeira dependencia do .o

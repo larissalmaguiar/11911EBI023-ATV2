@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-A partir do que foi feito na [ATIVIDADE 1](https://github.com/larissalmaguiar/11911EBI023-ATV1) configurei a placa para ter um pino de entrada adicional(PA0). De forma que a frequência de piscada do led agora irá mudar, a depender do estado desse pino de entrada.
+A partir do que foi feito na [ATIVIDADE 1](https://github.com/larissalmaguiar/11911EBI023-ATV1), alterando a placa para STM32F401, configurei a placa para ter um pino de entrada adicional(PA0). De forma que a frequência de piscada do led agora irá mudar, a depender do estado desse pino de entrada.
 
 ## Vetor de interrupções 
 No arquivo [startup](src/startup.c) foram definidas as funções para o vetor de interrupção do chip, já que arquitetura ARM Cortex-M não possui nenhum Sistema Operacional para realizar estas atividades.

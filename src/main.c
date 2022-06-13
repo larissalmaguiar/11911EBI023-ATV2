@@ -10,7 +10,7 @@
 #define STM32_RCC_BASE 0x40023800 /* 0x40023800-0x40023bff: Resetand Clock control RCC */
 /* Register Offsets*/
 #define STM32_RCC_AHB1ENR_OFFSET 0x0030
-#define STM32_GPIOC_BASE 0x48000800U
+#define STM32_GPIOC_BASE 0x40020800U
 //PINO PA
 #define STM32_GPIOA_BASE 0x40020000
 
@@ -100,9 +100,9 @@ int main(int argc, char *argv[])
     uint32_t *pGPIOC_PUPDR = (uint32_t *)STM32_GPIOC_PUPDR;
     uint32_t *pGPIOC_BSRR = (uint32_t *)STM32_GPIOC_BSRR;
 
-    uint32_t *pGPIOA_MODER = (uint32_t *)STM32_GPIOC_MODER;
+    uint32_t *pGPIOA_MODER = (uint32_t *)STM32_GPIOA_MODER;
     uint32_t *pGPIOA_IDR = (uint32_t *)STM32_GPIOA_IDR;
-    uint32_t *pGPIOA_PUPDR = (uint32_t *)STM32_GPIOC_PUPDR;
+    uint32_t *pGPIOA_PUPDR = (uint32_t *)STM32_GPIOA_PUPDR;
     //uint32_t *pGPIOA_BSRR = (uint32_t *)STM32_GPIOC_BSRR;
 
     uint32_t LED_DELAY;
@@ -146,21 +146,20 @@ int main(int argc, char *argv[])
 
     while (1)
     {
+      
+        uint32_t delay=  1&(*pGPIOA_IDR);
 
-        regA=*pGPIOA_IDR;
-         if (regA & 1)
-            LED_DELAY = 50000;
+        if (delay==1)
+            LED_DELAY = 200000;
         else
-            LED_DELAY = 10000;
+            LED_DELAY = 300000;
 
         *pGPIOC_BSRR = GPIO_BSRR_SET(13);
         led_status = 0;
         for (uint32_t i = 0; i < LED_DELAY; i++);
         
         *pGPIOC_BSRR = GPIO_BSRR_RST(13);
-        
         led_status = 1;
-        
         for (uint32_t i = 0; i < LED_DELAY; i++);
     } /* Nao deveria chegar aqui */
     return EXIT_SUCCESS;

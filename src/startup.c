@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define SRAM_START 0x20000000U                /* Inicio da SRAM CORTEX-M */
-#define SRAM_SIZE (128U * 1024U)              /* Tam. SRAM STM32F411 128K */
+#define SRAM_SIZE (64U * 1024U)              /* Tam. SRAM STM32F411 128K */
 #define SRAM_END ((SRAM_START) + (SRAM_SIZE)) // final da memoria ram do STM
 #define STACK_START SRAM_END
 
@@ -80,7 +80,7 @@ void i2c3_ev_irqhandler            (void) __attribute__ ((weak, alias("default_h
 void i2c3_er_irqhandler            (void) __attribute__ ((weak, alias("default_handler")));
 void fpu_irqhandler                (void) __attribute__ ((weak, alias("default_handler")));
 void spi4_irqhandler               (void) __attribute__ ((weak, alias("default_handler")));
-void spi5_irqhandler               (void) __attribute__ ((weak, alias("default_handler")));
+//void spi5_irqhandler               (void) __attribute__ ((weak, alias("default_handler")));
 
 void reset_handler(void)
 {
@@ -208,7 +208,7 @@ uint32_t vector[] __attribute__((section(".isr_vectors"))) = // não entendi ess
   0,                                      /* 0x0000 0188 */
   0,                                      /* 0x0000 018C */
   (uint32_t)spi4_irqhandler,              /* 0x0000 0190 */
-  (uint32_t)spi5_irqhandler,              /* 0x0000 0194 */
+  //(uint32_t)spi5_irqhandler,              /* 0x0000 0194 */
 
 };
 
